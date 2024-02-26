@@ -1,0 +1,44 @@
+<div class="container">
+    <h1> Crear préstamo </h1>
+
+    <form>
+        <mat-form-field>
+            <mat-label>Identificador</mat-label>
+            <input type="text" matInput placeholder="Identificador" [(ngModel)]="loan.id" name="id" disabled>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nombre cliente...</mat-label>
+            <mat-select disableRipple [(ngModel)]="loan.client" name="client" required>
+                <mat-option *ngFor="let client of clients" [value]="client">{{client.name}}</mat-option>
+            </mat-select>
+            <mat-error>El nombre del cliente no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Nombre juego...</mat-label>
+            <mat-select disableRipple [(ngModel)]="loan.game" name="game" required>
+                <mat-option *ngFor="let game of games" [value]="game">{{game.title}}</mat-option>
+            </mat-select>
+            <mat-error>El título del juego no puede estar vacío</mat-error>
+        </mat-form-field>
+
+        <mat-form-field>
+            <mat-label>Fechas de préstamo</mat-label>
+            <mat-date-range-input [rangePicker]="datePicker"> <!-- componente de Angular material que permite al usuario seleccionar un rango de fechas -->
+                <input matStartDate placeholder="Fecha de préstamo" [(ngModel)]="loan.startDate" name="startDate"
+                    required>
+                <input matEndDate placeholder="Fecha de devolución" [(ngModel)]="loan.endDate" name="endDate" required>
+            </mat-date-range-input>
+            <mat-datepicker-toggle matIconSuffix [for]="datePicker"></mat-datepicker-toggle> <!-- botón de activación del selector de fechas -->
+            <mat-date-range-picker #datePicker startView="month"></mat-date-range-picker> <!-- selector de fechas en si, startView = "month" indica que la vista inicial del selector será el mes -->
+        </mat-form-field>
+
+        <div *ngIf="errorMessage" class="error-message">{{ errorMessage }}</div>
+    </form>
+
+    <div class="buttons">
+        <button mat-stroked-button (click)="onClose()">Cerrar</button>
+        <button mat-flat-button color="primary" (click)="onSave()">Guardar</button>
+    </div>
+</div>

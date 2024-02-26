@@ -1,0 +1,36 @@
+<div class="container">
+    <h1>Listado de Categorías</h1>
+
+    <mat-table [dataSource]="dataSource">       <!-- Creamos la tabla con la variable dataSource definida en fichero .ts -->
+        <ng-container matColumnDef="id">        <!-- Definimos la primera columna, su cabecera y el dato que va a contener -->
+            <mat-header-cell *matHeaderCellDef> Identificador </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.id}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="name">      <!-- Definición segunda columna, su cabecera y dato que va a contener -->
+            <mat-header-cell *matHeaderCellDef> Nombre categoría  </mat-header-cell>
+            <mat-cell *matCellDef="let element"> {{element.name}} </mat-cell>
+        </ng-container>
+
+        <ng-container matColumnDef="action">    <!-- Definición tercera columna, su cabecera vacía y los dos botones de acción (editar y borrar)-->
+            <mat-header-cell *matHeaderCellDef></mat-header-cell>
+            <mat-cell *matCellDef="let element">
+                <!-- llamamos al metodo editCategory de category-list.component.ts -->
+                <button mat-icon-button color="primary" (click)="editCategory(element)">
+                    <mat-icon>edit</mat-icon>
+                </button>
+                <!-- llamamos al metodo deleteCategory de category-list.component.ts -->
+                <button mat-icon-button color="accent" (click)="deleteCategory(element)">
+                    <mat-icon>clear</mat-icon>
+                </button>
+            </mat-cell>
+        </ng-container>
+
+        <mat-header-row *matHeaderRowDef="displayedColumns; sticky: true"></mat-header-row>     <!-- Construcción de cabecera-->
+        <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>                    <!-- y filas -->
+    </mat-table>
+
+    <div class="buttons"> 
+        <button mat-flat-button color="primary" (click)="createCategory()">Nueva categoría</button>     <!-- enlazamos el click en el botón con el método creado para abrir el diálogo-->
+    </div>   
+</div>
